@@ -10,16 +10,17 @@ public class Event {
 	 public String EVENTTITLE ;
 	 public String EVENTCONTENT ;
 	 public	String EVENTTEXT ;
-	 public int EVENTSTATUS ;
+	 public String EVENTSTATUS ;
 	 public int ID ;
   
+	 public Event(){}
 	 public Event(String title,String content,String tickertext,int month,int date){
 		 EVENTDATE=date; 
 		 EVENTMONTH=month;
 		 EVENTTITLE=title;
 		 EVENTCONTENT=content;
 		 EVENTTEXT=tickertext; 
-		 EVENTSTATUS=0;
+		 EVENTSTATUS=String.valueOf(0);
 		
 	 }
 	 public Event(int id,String title,String content,String tickertext,int month,int date){
@@ -28,7 +29,7 @@ public class Event {
 		 EVENTTITLE=title;
 		 EVENTCONTENT=content;
 		 EVENTTEXT=tickertext; 
-		 EVENTSTATUS=0;
+		 EVENTSTATUS=String.valueOf(0);
 		 ID=id;
 	 }
 	 
@@ -36,7 +37,12 @@ public class Event {
      public int getID( ){
     	 return this.ID;
      }
+     public int getdate( ){
+    	 return this.EVENTDATE;
+     }
  
-    	 
+     public int getmonth( ){
+    	 return this.EVENTMONTH;
+     }	 
  
 }

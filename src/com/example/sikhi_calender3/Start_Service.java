@@ -2,6 +2,8 @@ package com.example.sikhi_calender3;
 
 
 
+import java.sql.Date;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -15,7 +17,7 @@ public class Start_Service extends Service{
 	private AlarmManager mAlarmManager;
 	private Intent mNotificationReceiverIntent;
     private PendingIntent mNotificationReceiverPendingIntent;
-	
+   
 	
 
 	@Override
@@ -26,7 +28,8 @@ public class Start_Service extends Service{
 		   mNotificationReceiverIntent = new Intent (getApplicationContext(),Broadcast_receiver.class); 
 			mNotificationReceiverPendingIntent = PendingIntent.getBroadcast(
 					this.getApplicationContext(), 0, mNotificationReceiverIntent, 0);
-		
+			 
+			
 	}
 
 	@Override
@@ -42,7 +45,18 @@ public class Start_Service extends Service{
 		// TODO Auto-generated method stub
 		
 		
-			
+		
+		DataBase_Handler db1 = new DataBase_Handler(getApplicationContext());
+		
+		
+		 Event event=db1.get_event();
+		 int date= event.getdate();
+		 Log.i("Event date", String.valueOf(date));
+		int month = event.getmonth();
+		 Log.i("Event month", String.valueOf(month));
+		 Date time= new Date(2014,month,date);
+		 long millisec =time.getTime();
+		 Log.i("Event sec", String.valueOf(millisec));
 			
 				mAlarmManager.set(AlarmManager.RTC_WAKEUP,  System.currentTimeMillis() +10000L,
 						 mNotificationReceiverPendingIntent);

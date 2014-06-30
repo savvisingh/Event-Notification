@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.renderscript.Int4;
 import android.util.Log;
 
 public class DataBase_Handler extends SQLiteOpenHelper{
@@ -19,7 +20,7 @@ public class DataBase_Handler extends SQLiteOpenHelper{
 	final static String EVENT_DATE = "event_date";
 	final static String EVENT_STATUS = "event_status";
 	final static String _ID = "_id";
-	final static String[] columns = { _ID,EVENT_TITLE,EVENT_CONTENT ,EVENT_TEXT,EVENT_STATUS,EVENT_MONTH, EVENT_DATE};
+	final static String[] columns = { _ID,EVENT_TITLE,EVENT_CONTENT ,EVENT_TEXT,EVENT_MONTH, EVENT_DATE,EVENT_STATUS};
 	
 	final private static String CREATE_TB =
 
@@ -46,14 +47,15 @@ public class DataBase_Handler extends SQLiteOpenHelper{
 	}
 					
 	public Event get_event( ){
+		
 		 SQLiteDatabase db = this.getReadableDatabase();
-		 Cursor cursor = db.query(TABLE_NAME, columns,EVENT_STATUS + "=" + 0 ,  null , null, null, null);
+		 Cursor cursor = db.query(TABLE_NAME, columns,EVENT_STATUS + "=?"  ,  new String[] {String.valueOf(0)} , null, null, null);
 		 Log.i("Database", "extracted in cursor");
 		 Event e;
 		 if(cursor.getCount()>0)
 			 Log.i("Database", "Cursor intialized");
 		 if (cursor != null)
-	            cursor.moveToFirst();
+		 {       cursor.moveToFirst();
 		 
 		  e = new Event(Integer.parseInt(cursor.getString(0)),
 				             cursor.getString(1), 
@@ -62,19 +64,30 @@ public class DataBase_Handler extends SQLiteOpenHelper{
 				             Integer.parseInt(cursor.getString(4)),
 				             Integer.parseInt(cursor.getString(5)));
 		 Log.i("Database", "extracted in event object");
-		 return e;
+		 return e;}
+		
+		 return new Event();
 		 
 	}
+	public Boolean check_database(){
+		 SQLiteDatabase db = this.getReadableDatabase();
+		 Cursor cursor = db.query(TABLE_NAME, columns,null , null , null, null, null);
+		 if (cursor.getCount()>0)
+		
+		 return false;
+		 return true;
+	}
+	
 	public void setstatus(int i){
 		SQLiteDatabase db = this.getWritableDatabase();
 		
 		 ContentValues values = new ContentValues();
-	        values.put(EVENT_STATUS, 1);
+	        values.put(EVENT_STATUS, String.valueOf(1));
 	        
 	    
 	        db.update(TABLE_NAME, values,_ID + "=?",
 	                new String[] { String.valueOf(i) });
-	        
+	        Log.i("Status ", "Updated");
 	 }
 
 	public DataBase_Handler(Context context)

@@ -19,6 +19,13 @@ public class MainActivity3 extends Activity {
 		
 		start_notifying=(Button) findViewById(R.id.start_notifying);
 	    stop_notfying=(Button) findViewById(R.id.stop_notifying);
+	    
+	    DataBase_Handler db1 = new DataBase_Handler(getApplicationContext());
+	   if( db1.check_database())
+	   {
+		   db1.add_event(new Event("Jyoti Jot Diwas", "Guru AngadDev Ji shaheedi Purab", "martyr Gursikhi Event", 7, 31));
+	        db1.add_event(new Event("Prakash Utsav", "Guru AngadDev Ji Birthday", " Gursikhi Event", 8, 1));
+	   }
 		 start_notifying.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {

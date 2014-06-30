@@ -16,9 +16,9 @@ import android.util.Log;
 public class Broadcast_receiver extends BroadcastReceiver{
 	private Intent mNotificationIntent;
 	private PendingIntent mContentIntent;
-	private String tickertext;
-	private String  contenttitle;
-	private String  contenttext;
+	private String tickertext="default";
+	private String  contenttitle="default";
+	private String  contenttext="default";
 
 	
 	@Override
@@ -27,16 +27,20 @@ public class Broadcast_receiver extends BroadcastReceiver{
 		
 		Log.i("broadcast", "received");
 		DataBase_Handler db = new DataBase_Handler(context);
-        db.add_event(new Event("Prakash Utsav", "Guru NaNakDev Ji Brithday", "Gursikhi Event", 29, 6)); 
+        
+        
         
         Event event=db.get_event();
-        tickertext=event.EVENTTEXT;
+        if(event!=null)
+        {tickertext=event.EVENTTEXT;
         contenttitle=event.EVENTTITLE;
         contenttext=event.EVENTCONTENT;
-        Log.i("Values", "set"); 
+        Log.i("Values", "set");
         
 		int id= event.getID();
 		db.setstatus(id);
+		Log.i("Id", String.valueOf(id));
+		}
 		mNotificationIntent = new Intent(context, MainActivity3.class);
 		mContentIntent = PendingIntent.getActivity(context, 0,
 				mNotificationIntent, Intent.FLAG_ACTIVITY_NEW_TASK);
