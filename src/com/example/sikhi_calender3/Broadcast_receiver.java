@@ -19,7 +19,7 @@ public class Broadcast_receiver extends BroadcastReceiver{
 	private String tickertext="default";
 	private String  contenttitle="default";
 	private String  contenttext="default";
-
+	
 	
 	@Override
 	public void onReceive(Context context, Intent arg1) {
@@ -28,7 +28,7 @@ public class Broadcast_receiver extends BroadcastReceiver{
 		Log.i("broadcast", "received");
 		DataBase_Handler db = new DataBase_Handler(context);
         
-        
+       
         
         Event event=db.get_event();
         if(event!=null)

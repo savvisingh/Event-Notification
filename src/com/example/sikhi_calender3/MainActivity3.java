@@ -23,8 +23,8 @@ public class MainActivity3 extends Activity {
 	    DataBase_Handler db1 = new DataBase_Handler(getApplicationContext());
 	   if( db1.check_database())
 	   {
-		   db1.add_event(new Event("Jyoti Jot Diwas", "Guru AngadDev Ji shaheedi Purab", "martyr Gursikhi Event", 7, 31));
-	        db1.add_event(new Event("Prakash Utsav", "Guru AngadDev Ji Birthday", " Gursikhi Event", 8, 1));
+		   db1.add_event(new Event("Jyoti Jot Diwas", "Guru AngadDev Ji shaheedi Purab", "martyr Gursikhi Event", 8, 1));
+	        db1.add_event(new Event("Prakash Utsav", "Guru AngadDev Ji Birthday", " Gursikhi Event", 8, 2));
 	   }
 		 start_notifying.setOnClickListener(new OnClickListener() {
 				@Override

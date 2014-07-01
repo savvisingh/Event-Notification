@@ -15,8 +15,8 @@ import android.widget.Toast;
 
 public class Start_Service extends Service{
 	private AlarmManager mAlarmManager;
-	private Intent mNotificationReceiverIntent;
-    private PendingIntent mNotificationReceiverPendingIntent;
+	private Intent mNotificationReceiverIntent, mServiceReceiverIntent;
+    private PendingIntent mNotificationReceiverPendingIntent,mServiceReceiverPendingIntent;
    
 	
 
@@ -28,13 +28,14 @@ public class Start_Service extends Service{
 		   mNotificationReceiverIntent = new Intent (getApplicationContext(),Broadcast_receiver.class); 
 			mNotificationReceiverPendingIntent = PendingIntent.getBroadcast(
 					this.getApplicationContext(), 0, mNotificationReceiverIntent, 0);
-			 
-			
+			mServiceReceiverIntent= new Intent(getApplicationContext(), Start_Service.class);	 
+			mServiceReceiverPendingIntent =PendingIntent.getService(getApplicationContext(), 0, mServiceReceiverIntent, 0);
 	}
 
 	@Override
 	public void onDestroy() {
 		// TODO Auto-generated method stub
+		Log.i("service","Off");
 		super.onDestroy();
 		if(mNotificationReceiverPendingIntent!=null)
 		{mAlarmManager.cancel(mNotificationReceiverPendingIntent);}
@@ -58,12 +59,13 @@ public class Start_Service extends Service{
 		 long millisec =time.getTime();
 		 Log.i("Event sec", String.valueOf(millisec));
 			
-				mAlarmManager.set(AlarmManager.RTC_WAKEUP,  System.currentTimeMillis() +10000L,
+				mAlarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+1000L,
 						 mNotificationReceiverPendingIntent);
 				Toast.makeText(getApplicationContext(), " Alarm Set",
 						Toast.LENGTH_LONG).show();
 			
-		
+				mAlarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+1000L,
+						mServiceReceiverPendingIntent );
 		
 		
 		Log.i("Alarm","Set");
