@@ -19,7 +19,7 @@ public class Broadcast_receiver extends BroadcastReceiver{
 	private String tickertext="default";
 	private String  contenttitle="default";
 	private String  contenttext="default";
-	
+	Intent service_intent;
 	
 	@Override
 	public void onReceive(Context context, Intent arg1) {
@@ -27,9 +27,9 @@ public class Broadcast_receiver extends BroadcastReceiver{
 		
 		Log.i("broadcast", "received");
 		DataBase_Handler db = new DataBase_Handler(context);
+		
         
-       
-        
+        int id=0;
         Event event=db.get_event();
         if(event!=null)
         {tickertext=event.EVENTTEXT;
@@ -37,10 +37,12 @@ public class Broadcast_receiver extends BroadcastReceiver{
         contenttext=event.EVENTCONTENT;
         Log.i("Values", "set");
         
-		int id= event.getID();
+		id= event.getID();
 		db.setstatus(id);
 		Log.i("Id", String.valueOf(id));
 		}
+        service_intent=new Intent(context,Start_Service.class);	
+        context.startService(service_intent);
 		mNotificationIntent = new Intent(context, MainActivity3.class);
 		mContentIntent = PendingIntent.getActivity(context, 0,
 				mNotificationIntent, Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -55,7 +57,7 @@ public class Broadcast_receiver extends BroadcastReceiver{
 		// Pass the Notification to the NotificationManager:
 		NotificationManager mNotificationManager = (NotificationManager) context
 				.getSystemService(Context.NOTIFICATION_SERVICE);
-		mNotificationManager.notify(2,
+		mNotificationManager.notify(id,
 				notificationBuilder.build());
 		
 		

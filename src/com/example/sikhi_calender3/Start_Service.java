@@ -3,6 +3,7 @@ package com.example.sikhi_calender3;
 
 
 import java.sql.Date;
+import java.util.Currency;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -15,9 +16,9 @@ import android.widget.Toast;
 
 public class Start_Service extends Service{
 	private AlarmManager mAlarmManager;
-	private Intent mNotificationReceiverIntent, mServiceReceiverIntent;
-    private PendingIntent mNotificationReceiverPendingIntent,mServiceReceiverPendingIntent;
-   
+	private Intent mNotificationReceiverIntent;
+    private PendingIntent mNotificationReceiverPendingIntent;
+   private int a;
 	
 
 	@Override
@@ -28,8 +29,7 @@ public class Start_Service extends Service{
 		   mNotificationReceiverIntent = new Intent (getApplicationContext(),Broadcast_receiver.class); 
 			mNotificationReceiverPendingIntent = PendingIntent.getBroadcast(
 					this.getApplicationContext(), 0, mNotificationReceiverIntent, 0);
-			mServiceReceiverIntent= new Intent(getApplicationContext(), Start_Service.class);	 
-			mServiceReceiverPendingIntent =PendingIntent.getService(getApplicationContext(), 0, mServiceReceiverIntent, 0);
+			
 	}
 
 	@Override
@@ -45,7 +45,10 @@ public class Start_Service extends Service{
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		// TODO Auto-generated method stub
 		
-		
+		if (a!=0){
+			a++;
+		}
+		else{a=0;}
 		
 		DataBase_Handler db1 = new DataBase_Handler(getApplicationContext());
 		
@@ -55,17 +58,16 @@ public class Start_Service extends Service{
 		 Log.i("Event date", String.valueOf(date));
 		int month = event.getmonth();
 		 Log.i("Event month", String.valueOf(month));
-		 Date time= new Date(2014,month,date);
+		 Date time= new Date(114, month-1,date);
 		 long millisec =time.getTime();
 		 Log.i("Event sec", String.valueOf(millisec));
-			
-				mAlarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+1000L,
+		 Log.i("Event sec", String.valueOf(System.currentTimeMillis()));
+		 
+				mAlarmManager.set(AlarmManager.RTC_WAKEUP,millisec ,
 						 mNotificationReceiverPendingIntent);
-				Toast.makeText(getApplicationContext(), " Alarm Set",
-						Toast.LENGTH_LONG).show();
+				
 			
-				mAlarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+1000L,
-						mServiceReceiverPendingIntent );
+				
 		
 		
 		Log.i("Alarm","Set");
