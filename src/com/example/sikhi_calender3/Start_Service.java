@@ -18,7 +18,7 @@ public class Start_Service extends Service{
 	private AlarmManager mAlarmManager;
 	private Intent mNotificationReceiverIntent;
     private PendingIntent mNotificationReceiverPendingIntent;
-   private int a;
+   
 	
 
 	@Override
@@ -27,8 +27,7 @@ public class Start_Service extends Service{
 		super.onCreate();
 		mAlarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 		   mNotificationReceiverIntent = new Intent (getApplicationContext(),Broadcast_receiver.class); 
-			mNotificationReceiverPendingIntent = PendingIntent.getBroadcast(
-					this.getApplicationContext(), 0, mNotificationReceiverIntent, 0);
+			
 			
 	}
 
@@ -45,32 +44,49 @@ public class Start_Service extends Service{
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		// TODO Auto-generated method stub
 		
-		if (a!=0){
-			a++;
-		}
-		else{a=0;}
+		
 		
 		DataBase_Handler db1 = new DataBase_Handler(getApplicationContext());
 		
 		
+		
+		 long eventmillisec,currentmillisec;
 		 Event event=db1.get_event();
 		 int date= event.getdate();
-		 Log.i("Event date", String.valueOf(date));
-		int month = event.getmonth();
-		 Log.i("Event month", String.valueOf(month));
+  		 int month = event.getmonth();
 		 Date time= new Date(114, month-1,date);
-		 long millisec =time.getTime();
-		 Log.i("Event sec", String.valueOf(millisec));
-		 Log.i("Event sec", String.valueOf(System.currentTimeMillis()));
-		 
-				mAlarmManager.set(AlarmManager.RTC_WAKEUP,millisec ,
+		 eventmillisec =time.getTime();
+		 currentmillisec =System.currentTimeMillis();
+		 int id=event.getID();
+		 Log.i("Entered","On StratCommand");
+		 while (eventmillisec<currentmillisec)
+		{  
+			 
+			 db1.setstatus(id);
+			 event=db1.get_event();
+			 id=event.getID();
+		    date= event.getdate();
+   		  month = event.getmonth();
+		  time= new Date(114, month-1,date);
+		 eventmillisec =time.getTime();
+		 currentmillisec =System.currentTimeMillis();
+		 	
+		};
+		Log.i("event date",String.valueOf(date));
+		int no=db1.get_no_events_on_day(date, month);
+		Log.i("no of events",String.valueOf(no));
+		for(int j=0;j<no;j++){
+		mNotificationReceiverPendingIntent = PendingIntent.getBroadcast(
+	   this.getApplicationContext(), j, mNotificationReceiverIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+				mAlarmManager.set(AlarmManager.RTC_WAKEUP,eventmillisec + (j*2000L) ,
 						 mNotificationReceiverPendingIntent);
+				Log.i("Alarm","Set");}
 				
 			
-				
 		
 		
-		Log.i("Alarm","Set");
+		
+		
 		
 		return START_NOT_STICKY;
 		

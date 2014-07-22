@@ -12,15 +12,17 @@ public class Event {
 	 public	String EVENTTEXT ;
 	 public String EVENTSTATUS ;
 	 public int ID ;
+	 public int EVENTTYPE;
   
 	 public Event(){}
-	 public Event(String title,String content,String tickertext,int month,int date){
+	 public Event(String title,String content,String tickertext,int month,int date,int eventtype){
 		 EVENTDATE=date; 
 		 EVENTMONTH=month;
 		 EVENTTITLE=title;
 		 EVENTCONTENT=content;
 		 EVENTTEXT=tickertext; 
 		 EVENTSTATUS=String.valueOf(0);
+		 EVENTTYPE=eventtype;
 		
 	 }
 	 public Event(int id,String title,String content,String tickertext,int month,int date){
@@ -31,6 +33,7 @@ public class Event {
 		 EVENTTEXT=tickertext; 
 		 EVENTSTATUS=String.valueOf(0);
 		 ID=id;
+		
 	 }
 	 
 	 

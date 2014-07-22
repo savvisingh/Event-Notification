@@ -1,5 +1,8 @@
 package com.example.sikhi_calender3;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -19,8 +22,9 @@ public class DataBase_Handler extends SQLiteOpenHelper{
 	final static String EVENT_MONTH = "event_month";
 	final static String EVENT_DATE = "event_date";
 	final static String EVENT_STATUS = "event_status";
+	final static String EVENT_TYPE="event_type";
 	final static String _ID = "_id";
-	final static String[] columns = { _ID,EVENT_TITLE,EVENT_CONTENT ,EVENT_TEXT,EVENT_MONTH, EVENT_DATE,EVENT_STATUS};
+	final static String[] columns = { _ID,EVENT_TITLE,EVENT_CONTENT ,EVENT_TEXT,EVENT_MONTH, EVENT_DATE,EVENT_STATUS,EVENT_TYPE};
 	
 	final private static String CREATE_TB =
 
@@ -29,7 +33,7 @@ public class DataBase_Handler extends SQLiteOpenHelper{
 					+ EVENT_TITLE + " TEXT NOT NULL," +EVENT_CONTENT+" TEXT NOT NULL,"+
 					EVENT_TEXT+" TEXT NOT NULL,"+
 					EVENT_MONTH+" INTEGER NOT NULL,"+ 
-					EVENT_DATE +" INTEGER NOT NULL,"+EVENT_STATUS +" INTEGER)" ;
+					EVENT_DATE +" INTEGER NOT NULL,"+EVENT_STATUS +" INTEGER,"+EVENT_TYPE+" INTEGER)" ;
 	
 	public void add_event( Event e){
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -40,7 +44,7 @@ public class DataBase_Handler extends SQLiteOpenHelper{
         values.put(EVENT_MONTH,e.EVENTMONTH);
         values.put(EVENT_DATE,e.EVENTDATE);
         values.put(EVENT_STATUS,e.EVENTSTATUS);
-       
+        values.put(EVENT_TYPE,e.EVENTTYPE);
         db.insert(TABLE_NAME,null, values);
         db.close();
         Log.i("Database", "inserted");
@@ -64,20 +68,84 @@ public class DataBase_Handler extends SQLiteOpenHelper{
 				             Integer.parseInt(cursor.getString(4)),
 				             Integer.parseInt(cursor.getString(5)));
 		 Log.i("Database", "extracted in event object");
+		 db.close();
 		 return e;}
 		
 		 return new Event();
 		 
 	}
+	
+	public int get_no_events_on_day (int day,int month){
+		
+		int no=0;
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.query(TABLE_NAME, columns, EVENT_DATE+ "=?"  ,  new String[] {String.valueOf(day)} , null, null, null);
+		cursor.moveToFirst();
+		Log.i("Entered", "no of events method");
+		if(cursor.getCount()>0){
+		while (Integer.parseInt(cursor.getString(4))==month){
+			
+			no++;
+			if(cursor.isLast())
+			{db.close();
+				return no;}
+			else{cursor.moveToNext();}
+		};}
+		 db.close();
+		return no;
+	}
 	public Boolean check_database(){
 		 SQLiteDatabase db = this.getReadableDatabase();
 		 Cursor cursor = db.query(TABLE_NAME, columns,null , null , null, null, null);
 		 if (cursor.getCount()>0)
-		
-		 return false;
+		 {db.close();
+		 return false;}
+		 db.close();
 		 return true;
 	}
+	public List<Integer> Check_event(int date ,int month){
+		
+		List<Integer> list =new ArrayList <Integer>();
+		 SQLiteDatabase db = this.getReadableDatabase();
+		 Cursor cursor = db.query(TABLE_NAME, columns, EVENT_DATE+ "=?"  ,  new String[] {String.valueOf(date)} , null, null, null);
+		 if (cursor.getCount()>0)
+		 { cursor.moveToFirst();
+		  for (int i=0;i<cursor.getCount();i++)
+		  {if(Integer.parseInt(cursor.getString(4))==month)
+		  { 
+			  if (list.contains(Integer.parseInt(cursor.getString(7))))
+				  continue;
+			  else{ list.add(Integer.parseInt(cursor.getString(7)));}
+			 
+		  }
+		  if(cursor.isLast())
+		  {db.close();
+			  return list;
+		  }
+		  else{
+     cursor.moveToNext();}
+		  }
+		 }
+		 db.close();
+		 return list;
+	}
 	
+	public ArrayList<String> get_events_for_list (int date,int month){
+		ArrayList<String> list =new ArrayList<String>();
+		SQLiteDatabase db = this.getReadableDatabase();
+		 Cursor cursor = db.query(TABLE_NAME, columns, EVENT_DATE+ "=?"  ,  new String[] {String.valueOf(date)} , null, null, null);
+		 if (cursor.getCount()>0)
+		 { cursor.moveToFirst();
+		  for (int i=0;i<cursor.getCount();i++)
+		  {if(Integer.parseInt(cursor.getString(4))==month){
+			  list.add(cursor.getString(1)+"-"+cursor.getString(2));
+			  if(cursor.isLast())
+				  return list;
+			  else cursor.moveToNext();
+	   }
+		  }
+		     } return list;
+		 }
 	public void setstatus(int i){
 		SQLiteDatabase db = this.getWritableDatabase();
 		
@@ -88,6 +156,7 @@ public class DataBase_Handler extends SQLiteOpenHelper{
 	        db.update(TABLE_NAME, values,_ID + "=?",
 	                new String[] { String.valueOf(i) });
 	        Log.i("Status ", "Updated");
+	        db.close();
 	 }
 
 	public DataBase_Handler(Context context)
@@ -107,7 +176,7 @@ public class DataBase_Handler extends SQLiteOpenHelper{
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// TODO Auto-generated method stub
-		
+		    
 	}
 	
 	
