@@ -130,6 +130,23 @@ public class DataBase_Handler extends SQLiteOpenHelper{
 		 return list;
 	}
 	
+	public List<String> get_events_for_child_list (int month){
+		ArrayList<String> list =new ArrayList<String>();
+		SQLiteDatabase db = this.getReadableDatabase();
+		 Cursor cursor = db.query(TABLE_NAME, columns, EVENT_MONTH+ "=?"  ,  new String[] {String.valueOf(month)} , null, null, null);
+		 if (cursor.getCount()>0)
+		 { cursor.moveToFirst();
+		  for (int i=0;i<cursor.getCount();i++)
+		  {
+			  list.add(cursor.getString(2)+cursor.getString(5));
+			  if(cursor.isLast())
+				  return list;
+			  else cursor.moveToNext();
+	   }
+		
+		 }
+		 return list;
+	}
 	public ArrayList<String> get_events_for_list (int date,int month){
 		ArrayList<String> list =new ArrayList<String>();
 		SQLiteDatabase db = this.getReadableDatabase();

@@ -47,7 +47,7 @@ import android.widget.TextView;
                         printMonth(month, year);
 
                         // Find Number of Events
-                       
+                        
                     }
                 private int getMonthIndex (String month){
                 	for (int i=0;i<12;i++)
@@ -253,12 +253,12 @@ import android.widget.TextView;
                        }
                        
                        }
-                        
+                      
                         return row;
                     }
                 @Override
                 public void onClick(View view){
-                	Log.i("entered","onclick event");
+                	
                         String date_month_year = (String) view.getTag();
                         String flag ="Date selected ...";
                       
