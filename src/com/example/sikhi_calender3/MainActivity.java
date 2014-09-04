@@ -8,10 +8,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.res.Configuration;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -77,10 +79,11 @@ public class MainActivity extends Activity {
 			         }
 			  };
 			  dLayout.setDrawerListener(mDrawerToggle);
-			 
-			  getActionBar().setIcon(R.drawable.khanda_light_blue);
-			  getActionBar().setDisplayHomeAsUpEnabled(true);
-			  getActionBar().setDisplayShowTitleEnabled(true);
+			  ActionBar bar = getActionBar();
+			  bar.setBackgroundDrawable(new ColorDrawable(0xff6fb7ea));
+			  bar.setIcon(R.drawable.khanda_light_blue);
+			 bar.setDisplayHomeAsUpEnabled(true);
+			  bar.setDisplayShowTitleEnabled(true);
 			 
 			  if (savedInstanceState == null) {
 				  updatedisplay(0);

@@ -83,15 +83,21 @@ public class DataBase_Handler extends SQLiteOpenHelper{
 		cursor.moveToFirst();
 		Log.i("Entered", "no of events method");
 		if(cursor.getCount()>0){
-		while (Integer.parseInt(cursor.getString(4))==month){
-			
-			no++;
-			if(cursor.isLast())
-			{db.close();
-				return no;}
+			for (int i=0;i<cursor.getCount();i++){
+			if(Integer.parseInt(cursor.getString(4))==month)
+			{
+				no++;
+				if(cursor.isLast())
+				{db.close();
+				
+					return no;}
+				cursor.moveToNext();
+			}
 			else{cursor.moveToNext();}
-		};}
+		};
+		   }
 		 db.close();
+		
 		return no;
 	}
 	public Boolean check_database(){
@@ -158,8 +164,9 @@ public class DataBase_Handler extends SQLiteOpenHelper{
 			  list.add(cursor.getString(1)+"-"+cursor.getString(2));
 			  if(cursor.isLast())
 				  return list;
-			  else cursor.moveToNext();
+			   cursor.moveToNext();
 	   }
+		  else{ cursor.moveToNext(); }
 		  }
 		     } return list;
 		 }

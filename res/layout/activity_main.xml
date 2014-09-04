@@ -2,9 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/sikhi"
+    android:background="#E8E8E8"
     android:orientation="vertical" >
 
+    <LinearLayout 
+        android:id="@+id/Static_bg"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#6fb7ea" >
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="fill_parent"
@@ -16,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:src="@drawable/calender_left_arrow_selector"
+            android:src="@drawable/ic_action_previous_item"
             android:layout_gravity="center_vertical" >
                     </ImageView>
         <Button
@@ -25,9 +31,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_weight="0.6"
-            android:background="@drawable/calendar_bar"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#FFFFFF" >
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:background="#6fb7ea"
+            android:textColor="#FFFFFF"
+            android:typeface="serif" >
         </Button>
         
          <ImageView
@@ -36,30 +44,103 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:src="@drawable/calender_right_arrow_selector" >
+            android:src="@drawable/ic_action_next_item" >
 
         </ImageView>
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/calendarheader"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+    <LinearLayout 
+        android:id="@+id/blankspace"
+        android:layout_width="wrap_content"
+        android:layout_height="8dp"
+        android:orientation="horizontal"
+       
+        android:layout_below="@id/linearLayout1"
+        >
+        
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/days"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/linearLayout1"
-        android:layout_marginTop="19dp"
-        android:background="@drawable/blue_bg_with_text" />
+        android:layout_below="@id/blankspace"
+        
+        android:orientation="horizontal" >
 
-   
-
-        <GridView
-            android:id="@+id/calendar"
+        <TextView
             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-            android:numColumns="7" 
-             android:layout_below="@+id/calendarheader"
-             android:layout_above="@+id/staticinfo" >
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="Sun" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="Mon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="Tue" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="Wed" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="Thu" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="Fri" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="Sat" />
+    </LinearLayout>
+    
+ <LinearLayout 
+        android:id="@+id/blankspace2"
+        android:layout_width="wrap_content"
+        android:layout_height="8dp"
+        android:orientation="horizontal"
+       
+        android:layout_below="@id/days"
+        >
+        </LinearLayout>
+        </LinearLayout>
+    
+     <GridView
+         android:id="@+id/calendar"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:layout_above="@+id/staticinfo"
+         android:layout_below="@id/Static_bg"
+         android:numColumns="7"
+         >
+
         </GridView>
+    
+       
 
    
     <LinearLayout
@@ -67,7 +148,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/gradient_bg"
+        android:background="#6fb7ea" 
         android:orientation="vertical"
         android:padding="3dp" >
 
@@ -193,5 +274,7 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
+    
 
 </RelativeLayout>

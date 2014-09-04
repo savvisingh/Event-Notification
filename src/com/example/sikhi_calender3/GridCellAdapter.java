@@ -7,6 +7,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources.Theme;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,7 +33,7 @@ import android.widget.TextView;
                 private Button gridcell;
                 private TextView num_events_per_day;
                 private ImageView img1,img2,img3;
-               
+                public DataBase_Handler db1 ;
 
                 // Days in Current Month
                 public GridCellAdapter(Context context, int month, int year){
@@ -42,7 +43,8 @@ import android.widget.TextView;
                         Calendar calendar = Calendar.getInstance();
                         setCurrentDayOfMonth(calendar.get(Calendar.DAY_OF_MONTH));
                         setCurrentWeekDay(calendar.get(Calendar.DAY_OF_WEEK));
-
+                        
+                         db1 = new DataBase_Handler(_context);
                         // Print Month
                         printMonth(month, year);
 
@@ -175,7 +177,7 @@ import android.widget.TextView;
                         gridcell.setTag(theday + "-" + String.valueOf(Integer.parseInt(themonth)+1) + "-" + theyear);
 
                         if (day_color[1].equals("GREY"))
-                                {gridcell.setTextColor(Color.LTGRAY);
+                                {
                                 gridcell.setBackgroundResource(R.drawable.grid_selector);}
                         
                         if (day_color[1].equals("WHITE"))
@@ -187,7 +189,7 @@ import android.widget.TextView;
                           gridcell.setBackgroundResource(R.drawable.current_date);
                          }
                                          
-                        DataBase_Handler db1 = new DataBase_Handler(_context);
+                        
                         List<Integer> list =new ArrayList <Integer>();
                         list=db1.Check_event(Integer.parseInt(theday), Integer.parseInt(themonth)+1);
                        if(list.size()>0){
@@ -260,12 +262,19 @@ import android.widget.TextView;
                 public void onClick(View view){
                 	
                         String date_month_year = (String) view.getTag();
-                        String flag ="Date selected ...";
-                      
+                        
+                        String[] dmy = date_month_year.split("-");
+                        int date= Integer.parseInt(dmy[0]);
+                        int month= Integer.parseInt(dmy[1]);
+                        
+                        int no_of_events =db1.get_no_events_on_day(date, month);
+                        Log.i("events in gridcell", String.valueOf(no_of_events));
+                        if (no_of_events>0){
                         Intent events= new Intent(_context,no_of_events.class);
                         events.putExtra("selected_cell",date_month_year );
                         events.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 		_context.startActivity(events);
+                        }
                     }
 
                 public int getCurrentDayOfMonth(){

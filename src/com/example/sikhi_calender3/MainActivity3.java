@@ -131,8 +131,16 @@ public class MainActivity3 extends Fragment implements OnClickListener
           		   
           	      db1.add_event(new Event("Jyoti Jot Diwas", "Guru AngadDev Ji shaheedi Purab", "martyr Gursikhi Event", 8, 18,Gurpurab));
          		  db1.add_event(new Event("Prakash Utsav", "Guru Ramdas Ji Birthday ", " Gursikhi Event", 8, 20,Sagrant));
-                  db1.add_event(new Event("Prakash Utsav", "Guru Ramdas Sahib Ji Birthday", " Gursikhi Event", 8, 23,Gurpurab));
+                  db1.add_event(new Event("Jyoti Jot Diwas", "Guru HarRai Sahib Ji Sheedi", " Gursikhi Event", 8, 20,Gurpurab));
+                  db1.add_event(new Event("Historical Days", "First Guru Granth Sahb Parkash At amritsar ", " Gursikhi Event", 8, 22,Historical_days));
+                  db1.add_event(new Event("Puranmashi", "Puranmashi in sikh calender", " Gursikhi Event", 8, 10,PuranMashi));
+                  db1.add_event(new Event("Masya", "Masya event ", " Gursikhi Event", 8, 10,Masya));
+                  
          	      db1.add_event(new Event("Prakash Utsav", "Guru HarKrishn Sahib Ji Birthday", " Gursikhi Event", 8, 30,Gurpurab));
+         	     db1.add_event(new Event("Jyoti Jot Diwas", "Guru AngadDev Ji shaheedi Purab", "martyr Gursikhi Event", 9, 1,Gurpurab));
+        		  db1.add_event(new Event("Prakash Utsav", "Guru Ramdas Ji Birthday ", " Gursikhi Event", 9, 20,Sagrant));
+                 db1.add_event(new Event("Martyrdom Day", "Guru Ramdas Sahib Ji Shidi", " Gursikhi Event", 9, 20,Gurpurab));
+        	      db1.add_event(new Event("Prakash Utsav", "Guru HarKrishn Sahib Ji Birthday", " Gursikhi Event", 9, 30,Gurpurab));
          	      
           	   }
                 

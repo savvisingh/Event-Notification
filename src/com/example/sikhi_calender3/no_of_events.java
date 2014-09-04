@@ -2,8 +2,10 @@ package com.example.sikhi_calender3;
 
 import java.util.ArrayList;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,7 +29,12 @@ public class no_of_events  extends Activity{
 		
 		events_listview=(ListView)findViewById(R.id.events_listview);
 		list=new ArrayList<String>();
-		
+		ActionBar bar1 = getActionBar();
+		 bar1.setBackgroundDrawable(new ColorDrawable(0xff6fb7ea));
+		  bar1.setDisplayHomeAsUpEnabled(true);
+		  bar1.setIcon(R.drawable.khanda_light_blue);
+		  bar1.setDisplayShowTitleEnabled(true);
+			 
 		Bundle b=getIntent().getExtras();
 		String D_M_Y =b.getString("selected_cell");
 		String [] event =D_M_Y.split("-");
@@ -47,9 +54,6 @@ public class no_of_events  extends Activity{
 				// TODO Auto-generated method stub
 				String selectedValue = list.get(arg2);
 				Log.i("display", selectedValue);
-				Intent selected_event=new Intent(getApplicationContext(),Display_event.class);
-				selected_event.putExtra("selectedevent", selectedValue);
-				startActivity(selected_event);
 				
 			}
 		});

@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
     android:padding="5dp"
-    android:orientation="horizontal" >
+    android:orientation="horizontal" 
+    android:background="#E8E8E8">
 
     <TextView
         android:id="@+id/lblListItem"
@@ -12,7 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.09"
         android:paddingLeft="5dp"
-        android:textSize="15dip" />
+        android:textSize="12dip"
+        android:typeface="serif" />
 
     <ImageView
         android:id="@+id/imageView1"
@@ -20,6 +22,7 @@
         android:layout_height="20dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/arrow_right" />
+        android:src="@drawable/arrow_right"
+         />
 
 </LinearLayout>
