@@ -171,7 +171,9 @@ import android.widget.TextView;
                         String theyear = day_color[3];
                        
                            
-                        
+                        Calendar calendar = Calendar.getInstance();
+                         int CurrentMonth=calendar.get(Calendar.MONTH);
+                       
                         // Set the Day GridCell
                         gridcell.setText(theday);
                         gridcell.setTag(theday + "-" + String.valueOf(Integer.parseInt(themonth)+1) + "-" + theyear);
@@ -185,8 +187,11 @@ import android.widget.TextView;
                         gridcell.setBackgroundResource(R.drawable.grid_selector);}
                         
                         if (day_color[1].equals("BLUE"))
-                         {gridcell.setTextColor(Color.BLACK);
-                          gridcell.setBackgroundResource(R.drawable.current_date);
+                         {if (CurrentMonth==Integer.parseInt(day_color[2]))
+                        	{gridcell.setTextColor(Color.BLACK);
+                          gridcell.setBackgroundResource(R.drawable.current_date);}
+                         else
+                        	 gridcell.setBackgroundResource(R.drawable.grid_selector);
                          }
                                          
                         
@@ -272,6 +277,7 @@ import android.widget.TextView;
                         if (no_of_events>0){
                         Intent events= new Intent(_context,no_of_events.class);
                         events.putExtra("selected_cell",date_month_year );
+                        events.putExtra("no of events",String.valueOf(no_of_events) );
                         events.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 		_context.startActivity(events);
                         }

@@ -17,7 +17,7 @@ public class Broadcast_receiver extends BroadcastReceiver{
 	private Intent mNotificationIntent;
 	private PendingIntent mContentIntent;
 	private String tickertext="default";
-	private String  contenttitle="default";
+	private String  contenttitle="NanakShahi Calender";
 	private String  contenttext="default";
 	Intent service_intent;
 	
@@ -29,36 +29,44 @@ public class Broadcast_receiver extends BroadcastReceiver{
 		DataBase_Handler db = new DataBase_Handler(context);
 		
         
-        int id=0;
+        int id=0, no_of_events=0 ;
         Event event=db.get_event();
         if(event!=null)
-        {tickertext=event.EVENTTEXT;
-        contenttitle=event.EVENTTITLE;
-        contenttext=event.EVENTCONTENT;
-        Log.i("Values", "set");
-        
+        {
+        no_of_events=db.get_no_events_on_day(event.getdate(), event.getmonth());
 		id= event.getID();
-		db.setstatus(id);
-		Log.i("Id", String.valueOf(id));
 		}
-        service_intent=new Intent(context,Start_Service.class);	
-        context.startService(service_intent);
-		mNotificationIntent = new Intent(context, MainActivity3.class);
-		mContentIntent = PendingIntent.getActivity(context, 0,
-				mNotificationIntent, Intent.FLAG_ACTIVITY_NEW_TASK);
-		
-		Notification.Builder notificationBuilder = new Notification.Builder(
-				context).setTicker(tickertext)
-				.setSmallIcon(android.R.drawable.stat_sys_warning)
-				.setAutoCancel(true).setContentTitle(contenttitle)
-				.setContentText(contenttext).setContentIntent(mContentIntent);
-			
+      
+        for(int i=0;i<no_of_events;i++){
+        	
+        	tickertext=event.EVENTTEXT;
+            contenttext=event.EVENTTITLE;
+            Log.i("Using Id",String.valueOf(id));
+            db.setstatus(id);
+            id++;
+    		event=db.get_event();
 
-		// Pass the Notification to the NotificationManager:
-		NotificationManager mNotificationManager = (NotificationManager) context
-				.getSystemService(Context.NOTIFICATION_SERVICE);
-		mNotificationManager.notify(id,
-				notificationBuilder.build());
+        	
+            mNotificationIntent = new Intent(context, MainActivity.class);
+    		mContentIntent = PendingIntent.getActivity(context, 0,
+    				mNotificationIntent, Intent.FLAG_ACTIVITY_NEW_TASK);
+    		
+    		Notification.Builder notificationBuilder = new Notification.Builder(
+    				context).setTicker(tickertext)
+    				.setSmallIcon(android.R.drawable.stat_sys_warning)
+    				.setAutoCancel(true).setContentTitle(contenttitle)
+    				.setContentText(contenttext).setContentIntent(mContentIntent);
+    			
+
+    		// Pass the Notification to the NotificationManager:
+    		NotificationManager mNotificationManager = (NotificationManager) context
+    				.getSystemService(Context.NOTIFICATION_SERVICE);
+    		mNotificationManager.notify(id,
+    				notificationBuilder.build());
+    		
+    		        }
+        {service_intent=new Intent(context,Start_Service.class);	
+        context.startService(service_intent);}
 		
 		
 	}

@@ -59,9 +59,7 @@ public class Expandable_List_View extends Fragment {
              @Override
              public boolean onGroupClick(ExpandableListView parent, View v,
                      int groupPosition, long id) {
-                 // Toast.makeText(getApplicationContext(),
-                 // "Group Clicked " + listDataHeader.get(groupPosition),
-                 // Toast.LENGTH_SHORT).show();
+                
                  return false;
              }
          });
@@ -71,9 +69,7 @@ public class Expandable_List_View extends Fragment {
   
              @Override
              public void onGroupExpand(int groupPosition) {
-                 Toast.makeText(appcontext,
-                         listDataHeader.get(groupPosition) + " Expanded",
-                         Toast.LENGTH_SHORT).show();
+                
              }
          });
   
@@ -82,10 +78,7 @@ public class Expandable_List_View extends Fragment {
   
              @Override
              public void onGroupCollapse(int groupPosition) {
-                 Toast.makeText(appcontext,
-                         listDataHeader.get(groupPosition) + " Collapsed",
-                         Toast.LENGTH_SHORT).show();
-  
+                
              }
          });
   
@@ -96,8 +89,11 @@ public class Expandable_List_View extends Fragment {
              public boolean onChildClick(ExpandableListView parent, View v,
                      int groupPosition, int childPosition, long id) {
                  // TODO Auto-generated method stub
+            	 String[] event_string= listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition).split("-");
+            	 String event_id =event_string[0];
                 Intent event =new Intent(appcontext, Display_event.class);
-                appcontext.startActivity(event);
+                event.putExtra("event_id", event_id);
+                //appcontext.startActivity(event);
                  return false;
              }
                  }

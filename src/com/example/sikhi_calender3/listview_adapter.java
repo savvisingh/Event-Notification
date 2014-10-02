@@ -10,17 +10,19 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class listview_adapter extends BaseAdapter implements OnClickListener{
      ArrayList <String> list;
      Context context;
-     TextView tvcontent,tvtitle;
+     TextView tvtitle;
+     ImageView img1;
      
 	 listview_adapter ( Context context,ArrayList<String> list){
 		this.list=list;
 		 this.context=context;
-		 Log.i("entered","constructor");
+		 
 	 }
 	@Override
 	public int getCount() {
@@ -49,14 +51,32 @@ public class listview_adapter extends BaseAdapter implements OnClickListener{
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 listview= inflater.inflate(R.layout.listview_format, parent, false);
              }
-		tvcontent =(TextView) listview.findViewById(R.id.content);
+		img1 =(ImageView) listview.findViewById(R.id.imageView1);
 		tvtitle =(TextView) listview.findViewById(R.id.title);
 		 String[] content = list.get(position).split("-");
-         String title = content[0];
-         String text = content[1];
-		
-         tvcontent.setText(text);
-         tvtitle.setText(title);
+         
+         String Title= content[1];
+		  String event_type_string =content[2];
+         
+         tvtitle.setText(Title);
+         int _event_type= Integer.parseInt(event_type_string);
+         
+         switch ( _event_type ) {					
+      case 1:
+		       img1.setImageResource(R.drawable.khanda_blue);	break;
+		case 2:
+		       img1.setImageResource(R.drawable.khanda_black);	break;
+		case 3:
+		       img1.setImageResource(R.drawable.khanda_green);	break;
+		case 4:
+		       img1.setImageResource(R.drawable.khanda_red);	break;
+		case 5:
+		       img1.setImageResource(R.drawable.khanda_violet); break;
+		case 6:
+		       img1.setImageResource(R.drawable.khanda_light_blue); break;
+
+		  
+		}
 		
 		return listview;
 		

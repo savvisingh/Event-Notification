@@ -54,10 +54,10 @@ public class DataBase_Handler extends SQLiteOpenHelper{
 		
 		 SQLiteDatabase db = this.getReadableDatabase();
 		 Cursor cursor = db.query(TABLE_NAME, columns,EVENT_STATUS + "=?"  ,  new String[] {String.valueOf(0)} , null, null, null);
-		 Log.i("Database", "extracted in cursor");
+		
 		 Event e;
 		 if(cursor.getCount()>0)
-			 Log.i("Database", "Cursor intialized");
+			 
 		 if (cursor != null)
 		 {       cursor.moveToFirst();
 		 
@@ -77,11 +77,12 @@ public class DataBase_Handler extends SQLiteOpenHelper{
 	
 	public int get_no_events_on_day (int day,int month){
 		
+		
 		int no=0;
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.query(TABLE_NAME, columns, EVENT_DATE+ "=?"  ,  new String[] {String.valueOf(day)} , null, null, null);
 		cursor.moveToFirst();
-		Log.i("Entered", "no of events method");
+		
 		if(cursor.getCount()>0){
 			for (int i=0;i<cursor.getCount();i++){
 			if(Integer.parseInt(cursor.getString(4))==month)
@@ -136,6 +137,17 @@ public class DataBase_Handler extends SQLiteOpenHelper{
 		 return list;
 	}
 	
+	public String get_event_content(String event_id){
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.query(TABLE_NAME, columns, _ID + "=?"  ,  new String[] {event_id} , null, null, null);
+		String content=null;
+		if (cursor.getCount()>0)
+			cursor.moveToFirst();
+			{content= cursor.getString(2);
+			}
+		return content;
+		
+	}
 	public List<String> get_events_for_child_list (int month){
 		ArrayList<String> list =new ArrayList<String>();
 		SQLiteDatabase db = this.getReadableDatabase();
@@ -144,7 +156,7 @@ public class DataBase_Handler extends SQLiteOpenHelper{
 		 { cursor.moveToFirst();
 		  for (int i=0;i<cursor.getCount();i++)
 		  {
-			  list.add(cursor.getString(2)+cursor.getString(5));
+			  list.add(cursor.getString(5)+"-"+cursor.getString(1));
 			  if(cursor.isLast())
 				  return list;
 			  else cursor.moveToNext();
@@ -152,8 +164,10 @@ public class DataBase_Handler extends SQLiteOpenHelper{
 		
 		 }
 		 return list;
+		 
 	}
 	public ArrayList<String> get_events_for_list (int date,int month){
+		
 		ArrayList<String> list =new ArrayList<String>();
 		SQLiteDatabase db = this.getReadableDatabase();
 		 Cursor cursor = db.query(TABLE_NAME, columns, EVENT_DATE+ "=?"  ,  new String[] {String.valueOf(date)} , null, null, null);
@@ -161,7 +175,28 @@ public class DataBase_Handler extends SQLiteOpenHelper{
 		 { cursor.moveToFirst();
 		  for (int i=0;i<cursor.getCount();i++)
 		  {if(Integer.parseInt(cursor.getString(4))==month){
-			  list.add(cursor.getString(1)+"-"+cursor.getString(2));
+			  list.add(cursor.getString(0)+"-"+cursor.getString(1)+"-"+cursor.getString(7));
+			  if(cursor.isLast())
+				  return list;
+			   cursor.moveToNext();
+	   }
+		  else{ cursor.moveToNext(); }
+		  }
+		     } return list;
+		 }
+	
+	
+	
+	
+	public ArrayList<String> get (int date,int month){
+		ArrayList<String> list =new ArrayList<String>();
+		SQLiteDatabase db = this.getReadableDatabase();
+		 Cursor cursor = db.query(TABLE_NAME, columns, EVENT_DATE+ "=?"  ,  new String[] {String.valueOf(date)} , null, null, null);
+		 if (cursor.getCount()>0)
+		 { cursor.moveToFirst();
+		  for (int i=0;i<cursor.getCount();i++)
+		  {if(Integer.parseInt(cursor.getString(4))==month){
+			  list.add(cursor.getString(1));
 			  if(cursor.isLast())
 				  return list;
 			   cursor.moveToNext();

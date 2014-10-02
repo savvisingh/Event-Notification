@@ -58,8 +58,9 @@ public class Start_Service extends Service{
 		 eventmillisec =time.getTime();
 		 currentmillisec =System.currentTimeMillis();
 		 int id=event.getID();
-		 Log.i("Entered","On StratCommand");
-		 while (eventmillisec<currentmillisec)
+		 Log.i("Using Id",String.valueOf(id));
+		 Log.i("event date",String.valueOf(date));
+		  while (eventmillisec<currentmillisec)
 		{  
 			 
 			 db1.setstatus(id);
@@ -72,15 +73,17 @@ public class Start_Service extends Service{
 		 currentmillisec =System.currentTimeMillis();
 		 	
 		};
+		 Log.i("Using Id",String.valueOf(id));
 		Log.i("event date",String.valueOf(date));
 		int no=db1.get_no_events_on_day(date, month);
 		Log.i("no of events",String.valueOf(no));
-		for(int j=0;j<no;j++){
+		
 		mNotificationReceiverPendingIntent = PendingIntent.getBroadcast(
-	   this.getApplicationContext(), j, mNotificationReceiverIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-				mAlarmManager.set(AlarmManager.RTC_WAKEUP,eventmillisec + (j*2000L) ,
+	   this.getApplicationContext(),1, mNotificationReceiverIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+				mAlarmManager.set(AlarmManager.RTC_WAKEUP,eventmillisec,
 						 mNotificationReceiverPendingIntent);
-				Log.i("Alarm","Set");}
+				Log.i("Alarm","Set");
+				
 				
 			
 		

@@ -52,8 +52,12 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
  
         TextView txtListChild = (TextView) convertView
                 .findViewById(R.id.lblListItem);
- 
-        txtListChild.setText(childText);
+        
+        TextView date = (TextView) convertView
+                .findViewById(R.id.date);
+       String[] childcontent = childText.split("-");
+        txtListChild.setText(childcontent[1]);
+        date.setText(childcontent[0]+" "+getGroup(groupPosition));
         return convertView;
     }
  
@@ -91,7 +95,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
  
         TextView lblListHeader = (TextView) convertView
                 .findViewById(R.id.lblListHeader);
-        lblListHeader.setTypeface(null, Typeface.BOLD);
+        
         lblListHeader.setText(headerTitle);
  
         return convertView;

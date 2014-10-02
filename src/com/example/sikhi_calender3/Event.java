@@ -10,7 +10,7 @@ public class Event {
 	 public String EVENTTITLE ;
 	 public String EVENTCONTENT ;
 	 public	String EVENTTEXT ;
-	 public String EVENTSTATUS ;
+	 public String EVENTSTATUS;
 	 public int ID ;
 	 public int EVENTTYPE;
   

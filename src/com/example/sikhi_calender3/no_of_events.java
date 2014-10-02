@@ -46,17 +46,9 @@ public class no_of_events  extends Activity{
 		listview_adapter adapter =new listview_adapter(getApplicationContext(),list);
 		 events_listview.setAdapter(adapter);
 		
-	    events_listview.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> adapter, View arg1, int arg2,
-					long arg3) {
-				// TODO Auto-generated method stub
-				String selectedValue = list.get(arg2);
-				Log.i("display", selectedValue);
-				
-			}
-		});
+	    
+			
+		
 	
 
 }
