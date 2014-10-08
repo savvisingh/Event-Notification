@@ -54,12 +54,14 @@ public class Start_Service extends Service{
 		 Event event=db1.get_event();
 		 int date= event.getdate();
   		 int month = event.getmonth();
-		 Date time= new Date(114, month-1,date);
+  		 int year =event.getyear();
+  		 int yy= year -1900;
+		 Date time= new Date(yy, month-1,date);
 		 eventmillisec =time.getTime();
 		 currentmillisec =System.currentTimeMillis();
 		 int id=event.getID();
-		 Log.i("Using Id",String.valueOf(id));
-		 Log.i("event date",String.valueOf(date));
+		 Log.i("Using yy",String.valueOf(yy));
+		
 		  while (eventmillisec<currentmillisec)
 		{  
 			 
@@ -68,19 +70,21 @@ public class Start_Service extends Service{
 			 id=event.getID();
 		    date= event.getdate();
    		  month = event.getmonth();
-		  time= new Date(114, month-1,date);
+   		 year =event.getyear();
+ 		  yy= year -1900;
+		  time= new Date(yy, month-1,date);
 		 eventmillisec =time.getTime();
 		 currentmillisec =System.currentTimeMillis();
 		 	
 		};
 		 Log.i("Using Id",String.valueOf(id));
 		Log.i("event date",String.valueOf(date));
-		int no=db1.get_no_events_on_day(date, month);
+		int no=db1.get_no_events_on_day(date, month,year);
 		Log.i("no of events",String.valueOf(no));
 		
 		mNotificationReceiverPendingIntent = PendingIntent.getBroadcast(
 	   this.getApplicationContext(),1, mNotificationReceiverIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-				mAlarmManager.set(AlarmManager.RTC_WAKEUP,eventmillisec,
+				mAlarmManager.set(AlarmManager.RTC_WAKEUP,eventmillisec -3*60*60*1000 ,
 						 mNotificationReceiverPendingIntent);
 				Log.i("Alarm","Set");
 				

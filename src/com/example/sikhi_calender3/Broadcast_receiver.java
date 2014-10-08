@@ -1,6 +1,7 @@
 package com.example.sikhi_calender3;
 
 
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Notification;
@@ -9,6 +10,8 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.util.Log;
 
@@ -20,6 +23,8 @@ public class Broadcast_receiver extends BroadcastReceiver{
 	private String  contenttitle="NanakShahi Calender";
 	private String  contenttext="default";
 	Intent service_intent;
+	private long[] mVibratePattern = { 0, 200, 200, 300 };
+
 	
 	@Override
 	public void onReceive(Context context, Intent arg1) {
@@ -33,7 +38,8 @@ public class Broadcast_receiver extends BroadcastReceiver{
         Event event=db.get_event();
         if(event!=null)
         {
-        no_of_events=db.get_no_events_on_day(event.getdate(), event.getmonth());
+        	int year = event.getyear();
+        no_of_events=db.get_no_events_on_day(event.getdate(), event.getmonth(),year);
 		id= event.getID();
 		}
       
@@ -50,12 +56,18 @@ public class Broadcast_receiver extends BroadcastReceiver{
             mNotificationIntent = new Intent(context, MainActivity.class);
     		mContentIntent = PendingIntent.getActivity(context, 0,
     				mNotificationIntent, Intent.FLAG_ACTIVITY_NEW_TASK);
+    		Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(),
+    				R.drawable.khanda_kesri_smallicon);
+			
     		
     		Notification.Builder notificationBuilder = new Notification.Builder(
     				context).setTicker(tickertext)
-    				.setSmallIcon(android.R.drawable.stat_sys_warning)
+    				.setSmallIcon(android.R.drawable.ic_menu_my_calendar)
+    				.setLargeIcon(largeIcon)
     				.setAutoCancel(true).setContentTitle(contenttitle)
-    				.setContentText(contenttext).setContentIntent(mContentIntent);
+    				
+       				.setContentText(contenttext).setContentIntent(mContentIntent)
+    				.setVibrate(mVibratePattern);
     			
 
     		// Pass the Notification to the NotificationManager:

@@ -22,7 +22,7 @@ import android.widget.TextView;
  public class GridCellAdapter extends BaseAdapter implements OnClickListener
             {
                 private final Context _context;
-
+                public int yyear ;
                 private final List<String> list;
                 private static final int DAY_OFFSET = 1;
                 private final String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
@@ -43,7 +43,7 @@ import android.widget.TextView;
                         Calendar calendar = Calendar.getInstance();
                         setCurrentDayOfMonth(calendar.get(Calendar.DAY_OF_MONTH));
                         setCurrentWeekDay(calendar.get(Calendar.DAY_OF_WEEK));
-                        
+                        this.yyear=year;
                          db1 = new DataBase_Handler(_context);
                         // Print Month
                         printMonth(month, year);
@@ -170,7 +170,7 @@ import android.widget.TextView;
                         String themonth = day_color[2];
                         String theyear = day_color[3];
                        
-                           
+                       
                         Calendar calendar = Calendar.getInstance();
                          int CurrentMonth=calendar.get(Calendar.MONTH);
                        
@@ -196,65 +196,84 @@ import android.widget.TextView;
                                          
                         
                         List<Integer> list =new ArrayList <Integer>();
-                        list=db1.Check_event(Integer.parseInt(theday), Integer.parseInt(themonth)+1);
+                        list=db1.Check_event(Integer.parseInt(theday), Integer.parseInt(themonth)+1,Integer.parseInt( theyear));
                        if(list.size()>0){
                     	   int no =list.size();
                          int i=0;
-                    	   int _event_type=list.get(i);
-                          
-                       switch ( _event_type ) {					
-                    case 1:
-					       img1.setImageResource(R.drawable.khanda_blue);	break;
-					case 2:
-					       img1.setImageResource(R.drawable.khanda_black);	break;
-					case 3:
-					       img1.setImageResource(R.drawable.khanda_green);	break;
-					case 4:
-					       img1.setImageResource(R.drawable.khanda_red);	break;
-					case 5:
-					       img1.setImageResource(R.drawable.khanda_violet); break;
-					case 6:
-					       img1.setImageResource(R.drawable.khanda_light_blue); break;
-
-					  
+                    	int event_type_year=list.get(i);
+                    	  
+                    	 Log.i("THe no of events", String.valueOf(no));   
+                    	   
+                       switch (event_type_year  ) {					
+                       case 1:
+                       
+   					       img1.setImageResource(R.drawable.khanda_violet);	break;
+   					case 2:
+   						
+   					       img1.setImageResource(R.drawable.khanda_black);	break;
+                       
+   					case 3:
+   					
+   					       img1.setImageResource(R.drawable.khanda_green);	break;
+   					case 4:
+   						
+   					       img1.setImageResource(R.drawable.khanda_red);	break;
+   					case 5:
+   						
+   					       img1.setImageResource(R.drawable.khanda_blue); break;
+   					case 6:
+   						
+   					       img1.setImageResource(R.drawable.khanda_brown); break;
 					}
                        i++;
                        if(i<no){
-                    	    _event_type=list.get(i);
-                    	   switch ( _event_type ) {					
+                    	   event_type_year=list.get(i);
+                           
+                    	   switch ( event_type_year)  {					
                            case 1:
-       					       img2.setImageResource(R.drawable.khanda_blue);	break;
+                        	  
+       					       img2.setImageResource(R.drawable.khanda_violet);	break;
        					case 2:
+       						
        					       img2.setImageResource(R.drawable.khanda_black);	break;
        					case 3:
+       						
        					       img2.setImageResource(R.drawable.khanda_green);	break;
        					case 4:
-       					       img2.setImageResource(R.drawable.khanda_red);	break;
+       						
+       					       {img2.setImageResource(R.drawable.khanda_red);	break;}
        					case 5:
-       					       img2.setImageResource(R.drawable.khanda_violet); break;
+       						
+       					       img2.setImageResource(R.drawable.khanda_blue); break;
+                    	  
        					case 6:
-       					       img2.setImageResource(R.drawable.khanda_light_blue); break;
+       						
+       					       img2.setImageResource(R.drawable.khanda_brown); break;
 
        					  
        					}
                        }
                        i++;
                        if(i<no){
-                    	    _event_type=list.get(i);
-                    	   switch ( _event_type ) {					
-                           case 1:
-       					       img3.setImageResource(R.drawable.khanda_blue);	break;
+                    	   event_type_year=list.get(i);
+                    	   switch (event_type_year ) {					
+                    	   case 1:
+                    		  
+       					       img3.setImageResource(R.drawable.khanda_violet);	break;
        					case 2:
+       						
        					       img3.setImageResource(R.drawable.khanda_black);	break;
        					case 3:
+       						
        					       img3.setImageResource(R.drawable.khanda_green);	break;
        					case 4:
        					       img3.setImageResource(R.drawable.khanda_red);	break;
        					case 5:
-       					       img3.setImageResource(R.drawable.khanda_violet); break;
+       						
+       					       img3.setImageResource(R.drawable.khanda_blue); break;
        					case 6:
-       					       img3.setImageResource(R.drawable.khanda_light_blue); break;
-
+       						
+       					       img3.setImageResource(R.drawable.khanda_brown); break;
        					  
        					}
                        }
@@ -271,8 +290,9 @@ import android.widget.TextView;
                         String[] dmy = date_month_year.split("-");
                         int date= Integer.parseInt(dmy[0]);
                         int month= Integer.parseInt(dmy[1]);
+                       int year =Integer.parseInt(dmy[2]);
                         
-                        int no_of_events =db1.get_no_events_on_day(date, month);
+                        int no_of_events =db1.get_no_events_on_day(date, month,year);
                         Log.i("events in gridcell", String.valueOf(no_of_events));
                         if (no_of_events>0){
                         Intent events= new Intent(_context,no_of_events.class);

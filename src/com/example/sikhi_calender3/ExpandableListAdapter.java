@@ -1,5 +1,7 @@
 package com.example.sikhi_calender3;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
  
@@ -40,7 +42,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, final int childPosition,
             boolean isLastChild, View convertView, ViewGroup parent) {
-    	Log.i("Entered","get childView");
+    	
  
         final String childText = (String) getChild(groupPosition, childPosition);
  
@@ -57,7 +59,11 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 .findViewById(R.id.date);
        String[] childcontent = childText.split("-");
         txtListChild.setText(childcontent[1]);
-        date.setText(childcontent[0]+" "+getGroup(groupPosition));
+         int yy=Integer.parseInt(childcontent[2])-1900;
+        Date event_date= new Date(yy, groupPosition, Integer.parseInt(childcontent[0]));
+        
+        String fdate = new SimpleDateFormat("yyyy-MM-dd").format(event_date);
+        date.setText(fdate);
         return convertView;
     }
  

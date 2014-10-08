@@ -19,10 +19,10 @@
      
          <ImageView
             android:id="@+id/prevMonth"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:src="@drawable/ic_action_previous_item"
+          
             android:layout_gravity="center_vertical" >
                     </ImageView>
         <Button
@@ -41,10 +41,10 @@
          <ImageView
             android:id="@+id/nextMonth"
              android:layout_gravity="center_vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:src="@drawable/ic_action_next_item" >
+           >
 
         </ImageView>
     </LinearLayout>
@@ -189,7 +189,7 @@
                     android:id="@+id/khanda_blue"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/khanda_blue" />
+                    android:src="@drawable/khanda_violet" />
 
                 <TextView
                     android:id="@+id/sagrant"
@@ -261,7 +261,7 @@
                     android:id="@+id/khanda_violet"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/khanda_violet" />
+                    android:src="@drawable/khanda_blue" />
 
                 <TextView
                     android:id="@+id/historical_days"

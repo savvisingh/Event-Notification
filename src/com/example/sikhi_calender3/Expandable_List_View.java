@@ -55,21 +55,24 @@ public class Expandable_List_View extends Fragment {
   
          // Listview Group click listener
          expListView.setOnGroupClickListener(new OnGroupClickListener() {
-  
+        	 
+        	
              @Override
              public boolean onGroupClick(ExpandableListView parent, View v,
                      int groupPosition, long id) {
-                
+            	 
                  return false;
              }
          });
   
          // Listview Group expanded listener
          expListView.setOnGroupExpandListener(new OnGroupExpandListener() {
-  
+        	 int previousGroup = -1;
              @Override
              public void onGroupExpand(int groupPosition) {
-                
+            	 if(groupPosition != previousGroup)
+                     expListView.collapseGroup(previousGroup);
+                 previousGroup = groupPosition;
              }
          });
   
@@ -119,7 +122,7 @@ public class Expandable_List_View extends Fragment {
        for (int i=0;i<12;i++)
        {
     	   String month =months[i];
-    	   List<String> month2 = db.get_events_for_child_list(i+1);
+    	   List<String> month2 = db.get_events_for_child_list(i+1,2014);
     	   listDataChild.put(listDataHeader.get(i), month2);
     	   
     			   

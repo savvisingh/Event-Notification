@@ -3,38 +3,37 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="#00000000"
-    android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingTop="13dp"
     android:paddingBottom="13dp"
     android:paddingLeft="5dp"
-    android:paddingRight="5dp" >
+    android:paddingRight="5dp" 
+   >
 
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingRight="5dp" >
-
-        
+   
+ 
         <ImageView
         android:id="@+id/imageView1"
         android:layout_width="20dp"
         android:layout_height="20dp"
+        android:src="@drawable/khanda_blue" 
         android:layout_gravity="center_vertical"
-        android:src="@drawable/khanda_blue" />
         
-         </LinearLayout>
+        />
+        
+   
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Guru Gobind Singh Ji "
+            android:text="Guru Gobind Singh Ji"
             android:textColor="#040404"
-            android:layout_toRightOf="@id/linearLayout1"
+            android:layout_toRightOf="@id/imageView1"
             android:textSize="15dp"
-            android:typeface="serif" />
+            android:typeface="serif"
+            
+            android:paddingLeft="5dp"
+             />
    
 
     

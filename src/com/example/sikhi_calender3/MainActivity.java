@@ -25,24 +25,28 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 public class MainActivity extends Activity {
        String[] menu;
-       String[] menutitles={"Calender View","List View"};
-       Integer[] menuIcons={ R.drawable.khanda_light_blue,R.drawable.khanda_light_blue};
+       String[] menutitles={" Calender"," List By Month"," About us"};
+       Integer[] menuIcons={ R.drawable.khanda_combi,R.drawable.khanda_combi,R.drawable.khanda_combi};
        DrawerLayout dLayout;
        ListView dList;
        private List<List_item> rowItems;
        List_View_adapter list_adapter;
        private ActionBarDrawerToggle mDrawerToggle;
-       private CharSequence mDrawerTitle;
-  	 private CharSequence mTitle;
+       private CharSequence mDrawerTitle="Nanakshahi Calender";
+  	 private CharSequence mTitle="Nanakshahi Calender";
       
   @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.sikhi_main_xml);
-        
-    mTitle = getTitle();
-    mDrawerTitle="Drawer";
+    ActionBar bar = getActionBar();
+	  bar.setBackgroundDrawable(new ColorDrawable(0xff6fb7ea));
+	  bar.setIcon(R.drawable.khanda_kesri_smallicon);
+	 bar.setDisplayHomeAsUpEnabled(true);
+	  bar.setDisplayShowTitleEnabled(true);
+      bar.setTitle(mDrawerTitle);  
+    
           dLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
           dList = (ListView) findViewById(R.id.left_drawer);
           rowItems = new ArrayList<List_item>();
@@ -79,11 +83,7 @@ public class MainActivity extends Activity {
 			         }
 			  };
 			  dLayout.setDrawerListener(mDrawerToggle);
-			  ActionBar bar = getActionBar();
-			  bar.setBackgroundDrawable(new ColorDrawable(0xff6fb7ea));
-			  bar.setIcon(R.drawable.khanda_light_blue);
-			 bar.setDisplayHomeAsUpEnabled(true);
-			  bar.setDisplayShowTitleEnabled(true);
+			 
 			 
 			  if (savedInstanceState == null) {
 				  updatedisplay(0);
@@ -114,6 +114,9 @@ public void updatedisplay(int position){
 		 detail= new Expandable_List_View(this);
 		break;
 
+	case 2:
+		detail= new AboutUs();
+		break;
 	default:
 		break;
 	}

@@ -13,9 +13,9 @@ public class Event {
 	 public String EVENTSTATUS;
 	 public int ID ;
 	 public int EVENTTYPE;
-  
+     public int EVENTYEAR;
 	 public Event(){}
-	 public Event(String title,String content,String tickertext,int month,int date,int eventtype){
+	 public Event(String title,String content,String tickertext,int month,int date,int eventtype,int year){
 		 EVENTDATE=date; 
 		 EVENTMONTH=month;
 		 EVENTTITLE=title;
@@ -23,16 +23,19 @@ public class Event {
 		 EVENTTEXT=tickertext; 
 		 EVENTSTATUS=String.valueOf(0);
 		 EVENTTYPE=eventtype;
+		 EVENTYEAR=year;
+		 
 		
 	 }
-	 public Event(int id,String title,String content,String tickertext,int month,int date){
+	 public Event(int id,String title,String content,String tickertext,int month,int date,int year){
 		 EVENTDATE=date; 
 		 EVENTMONTH=month;
 		 EVENTTITLE=title;
 		 EVENTCONTENT=content;
 		 EVENTTEXT=tickertext; 
 		 EVENTSTATUS=String.valueOf(0);
-		 ID=id;
+		 ID=id; 
+		 EVENTYEAR=year;
 		
 	 }
 	 
@@ -46,6 +49,9 @@ public class Event {
  
      public int getmonth( ){
     	 return this.EVENTMONTH;
-     }	 
+     }	
+     public int getyear( ){
+    	 return this.EVENTYEAR;
+     }	
  
 }

@@ -62,20 +62,18 @@ public class listview_adapter extends BaseAdapter implements OnClickListener{
          int _event_type= Integer.parseInt(event_type_string);
          
          switch ( _event_type ) {					
-      case 1:
-		       img1.setImageResource(R.drawable.khanda_blue);	break;
-		case 2:
-		       img1.setImageResource(R.drawable.khanda_black);	break;
-		case 3:
-		       img1.setImageResource(R.drawable.khanda_green);	break;
-		case 4:
-		       img1.setImageResource(R.drawable.khanda_red);	break;
-		case 5:
-		       img1.setImageResource(R.drawable.khanda_violet); break;
-		case 6:
-		       img1.setImageResource(R.drawable.khanda_light_blue); break;
-
-		  
+         case 1:
+			       img1.setImageResource(R.drawable.khanda_violet);	break;
+			case 2:
+			       img1.setImageResource(R.drawable.khanda_black);	break;
+			case 3:
+			       img1.setImageResource(R.drawable.khanda_green);	break;
+			case 4:
+			       img1.setImageResource(R.drawable.khanda_red);	break;
+			case 5:
+			       img1.setImageResource(R.drawable.khanda_blue); break;
+			case 6:
+			       img1.setImageResource(R.drawable.khanda_brown); break;
 		}
 		
 		return listview;
