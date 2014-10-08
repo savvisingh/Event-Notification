@@ -22,10 +22,11 @@ public class AboutUs extends Fragment implements OnClickListener{
 	    	
 	    	ImageView fb = (ImageView)view.findViewById(R.id.fb);
 			ImageView git = (ImageView) view.findViewById(R.id.git);
-			ImageView play = (ImageView)view.findViewById(R.id.play);
+			ImageView dp_fb = (ImageView) view.findViewById(R.id.developer_fb);
+			
 			fb.setOnClickListener(this);
 			git.setOnClickListener(this);
-			play.setOnClickListener(this);
+			dp_fb.setOnClickListener(this);
 	    	   return view;         
          
 }
@@ -46,12 +47,13 @@ public class AboutUs extends Fragment implements OnClickListener{
 	            Uri.parse("https://github.com/sdsmdg"));
 	          startActivity(gitIntent);			
 			break;
-		case R.id.play :
-			Intent playIntent =
+		case R.id.developer_fb :
+			Intent db_fbIntent =
 	          new Intent("android.intent.action.VIEW",
-	            Uri.parse("https://play.google.com/store/apps/developer?id=SDSLabs"));
-	          startActivity(playIntent);	
+	            Uri.parse("https://www.facebook.com/savvi.singh"));
+	          startActivity(db_fbIntent);			
 			break;
+		
 		}
 	}
 }
