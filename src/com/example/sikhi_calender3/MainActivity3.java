@@ -81,10 +81,10 @@ public class MainActivity3 extends Fragment implements OnClickListener
             year = _calendar.get(Calendar.YEAR);
            
             prevMonth = (ImageView) view.findViewById(R.id.prevMonth);
-            if(year==2014&&month==3){
-            	 
+            if(year==2014&&month==2){
+            	 prevMonth.setImageResource(R.drawable.ic_action_previous_item_blue); 
             }
-            else prevMonth.setImageResource(R.drawable.ic_action_previous_item);
+            else {prevMonth.setImageResource(R.drawable.ic_action_previous_item);}
              prevMonth.setOnClickListener(this);
             currentMonth = (Button) view.findViewById(R.id.currentMonth);
             currentMonth.setText(DateFormat.format(dateTemplate, _calendar.getTime()));
